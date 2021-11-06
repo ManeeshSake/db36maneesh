@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h1= title 
+  p Maneesh
+  div(class="container-fluid")
+        div(class="row")
+            -
+                let spiderman = [
+                    {
+                        "Actor": "maneesh",
+                        "age": 60,
+                        "color": "black"
+                    },
+                    {
+                        "Actor": "kiran",
+                        "age": 50,
+                        "color": "Black"
+                    },
+                    {
+                        "Actor": "akhil",
+                        "age": 40,
+                        "color": "black"
+                    },                   
+                ]
+            each v,index in spiderman 
+                div(class="col-sm-2" onclick=`buy(${index})`) #{v.Actor}
+                div(class="col-sm-2" onclick=`buy(${index})`) #{v.age}
+                div(class="col-sm-2" onclick=`buy(${index})`) #{v.color}
+                
+  script.                
+        function buy(intemNo)
+        {
+              alert(`you purchased Item ${intemNo+1}`);
+        }   
+
+                
+  
