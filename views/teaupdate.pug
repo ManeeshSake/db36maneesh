@@ -1,0 +1,46 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+   if (toShow == null) 
+    h2 No instance to update 
+   else 
+    - let teaid = toShow._id 
+    - let tea_type = toShow.tea_type 
+    - let cost = toShow.cost 
+    - let size = toShow.size 
+    
+    div.row(class='mb-2') 
+        div.mr-1 ID is 
+        div #{teaid} 
+    - let actionid = "/resource/teas/" + teaid 
+    form(id='TeaForm', action= actionid, method="PUT") 
+        div.form-group 
+            label.teaAttr(for='tea_type') Tea type 
+            input#tea_type(type='text', name='tea_type', value= tea_type ) 
+        div.form-group 
+            label.teaAttr(for='size') Tea size 
+            input#size(type='text', name='size', value= size ) 
+        div.form-group 
+            label.teaAttr(for='cost') Tea cost 
+            input#cost(type='number', name='cost', value= cost ) 
+        input(type="submit") 
+    
+  script. 
+    document.forms['TeaForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    }); 

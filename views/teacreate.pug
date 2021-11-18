@@ -1,0 +1,31 @@
+extends layout
+block content
+ h1= title
+ form(id='teaForm', action="/resource/teas", method="POST")
+    div.form-group
+        label(for='tea_type' class="control-label") tea type
+        input#tea_type(type='text', name='tea_type' class="form-control")
+    div.form-group
+        label(for='size' class="control-label") tea size
+        input#size(type='text', name='size' class="form-control")
+    div.form-group
+        label(for='cost' class="control-label") tea cost
+        input#cost(type='number', name='cost' class="form-control")
+    input(type="submit" class="btn btn-primary")
+
+ script.
+    document.forms['teaForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    fetch(event.target.action, {
+    method: 'POST',
+    body: new URLSearchParams(new FormData(event.target))
+    }).then((resp) => {
+    return resp.json();
+    }).then((body) => {
+    alert("Save succeded")
+    // TODO handle body
+    }).catch((error) => {
+    // TODO handle error
+    alert("Save failed " + error )
+    });
+    });
