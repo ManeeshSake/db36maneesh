@@ -1,7 +1,10 @@
 const mongoose = require("mongoose") 
 const teaSchema = mongoose.Schema({ 
  tea_type: String, 
- size: String, 
+ size: {
+     type: String,
+     minLength: 5
+ }, 
  cost: Number 
 }) 
  
